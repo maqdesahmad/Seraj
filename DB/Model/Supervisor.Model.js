@@ -45,14 +45,23 @@ const supervisorSchema = new Schema(
       teams: {
         type: [
           {
-            teamName: { type: String, required: true, unique: true },
+            teamName: { 
+              type: String, 
+              required: true, 
+              unique: true, 
+              sparse: true, // Allows null values while ensuring uniqueness
+            },
             members: [
               {
-                email: { type: String, required: true, unique: true },
-                name: { type: String, required: true },
-                registrationNumber: { type: String, required: true },
+                  email: {
+                      type: String,
+                      unique: true, // Unique index
+                      sparse: true, // Allows multiple `null` values
+                  },
+                  name: { type: String, required: true },
+                  registrationNumber: { type: String, required: true },
               },
-            ],
+          ],
             approved: { type: Boolean, default: null },
             reservedBy: {
               type: mongoose.Schema.Types.ObjectId,
