@@ -86,6 +86,24 @@ export const AddSupervisor = async (req, res) => {
       res.status(500).json({ message: "Error fetching supervisors", error });
     }
   };
+  export const GetAllSupervisors = async (req, res) => {
+  try{
+      const supervisors = await SupervisorModel.find()
+        .populate("college", "collegeName")
+        .populate("department", "departmentName");
+  
+      if (!supervisors || supervisors.length === 0) {
+        return res.status(404).json({ message: "No supervisors found" });
+      }
+  
+      res.status(200).json({
+        message: "Supervisors retrieved successfully",
+        supervisors,
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching supervisors", error });
+    }
+  };
   
   export const GetActiveSupervisors = async (req, res) => {
     try {

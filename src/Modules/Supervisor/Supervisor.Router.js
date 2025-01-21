@@ -7,6 +7,7 @@ const router = Router()
 
 router.post("/AddSupervisor", auth(endPoint.AddSupervisor), controllerSupervisor.AddSupervisor);
 router.get('/GetSupervisors/:departmentId', controllerSupervisor.GetSupervisors);
+router.get('/GetSupervisors', controllerSupervisor.GetAllSupervisors);
 router.get('/GetActiveSupervisors', controllerSupervisor.GetActiveSupervisors);
 router.get('/GetPendingSupervisors', controllerSupervisor.GetPendingSupervisors);
 router.get('/GetSupervisorGroups/:supervisorId', controllerSupervisor.GetSupervisorGroups);
