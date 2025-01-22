@@ -74,6 +74,23 @@ export const getProjects = async (req, res) => {
     res.status(500).json({ message: "Error fetching projects", error });
   }
 };
+export const getProjectById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const project = await ProjectModel.findById(id)
+      .populate("supervisor", "supervisorName")
+      .populate("college", "collegeName")
+      .populate("department", "departmentName");
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    res.status(200).json({ message: "Project found", project });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching project", error });
+  }
+};
 
 export const getProjectsByDepartment = async (req, res) => {
   try {

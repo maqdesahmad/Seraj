@@ -8,6 +8,7 @@ const router = Router()
 
 router.post("/AddProjects", upload.single('projectFile'), auth(endPoint.AddProjects), controllerProject.AddProjects);
 router.get("/getProjects", controllerProject.getProjects);
+router.get("/getProject/:id", controllerProject.getProjectById);
 router.get("/getProjectsByDepartment/:departmentId", controllerProject.getProjectsByDepartment);
 router.delete("/deleteProjects/:id", auth(endPoint.deleteProjects), controllerProject.deleteProjects);
 
