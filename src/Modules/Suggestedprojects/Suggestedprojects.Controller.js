@@ -268,6 +268,7 @@ export const getUnreservedProjects = async (req, res) => {
   try {
     const unreservedProjects = await SuggestedprojectModel.find({
       "reservation.approved": false,
+      supervisor: req.user._id
     })
       .populate("supervisor", "supervisorName") // Populate supervisorName
       .populate("college", "collegeName") // Populate collegeName
