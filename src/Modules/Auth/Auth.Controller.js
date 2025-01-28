@@ -74,7 +74,7 @@ export const SignUp = async (req, res) => {
     try {
       const supervisor = await SupervisorModel.create({
         supervisorName: Name,
-        status: "pending",
+        status: "active",
         role: "Supervisor",
         password: hashedpassword,
         email,

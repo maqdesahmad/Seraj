@@ -245,20 +245,35 @@ export const deleteSuggestedProjects = async (req, res) => {
   }
 };
 
+// export const getUnreservedProjects = async (req, res) => {
+//   try {
+//     const unreservedProjects = await SuggestedprojectModel.find({
+//       $or: [
+//         { reservation: { $exists: false } },
+//         { "reservation.reservedBy": { $exists: false } },
+//         { "reservation.approved": false },
+//       ],
+//     })
+//       .populate("supervisor", "supervisorName")
+//       .populate("college", "collegeName")
+//       .populate("department", "departmentName");
+
+//     res.status(200).json({ message: "Unreserved Projects", projects: unreservedProjects });
+//   } catch (error) {
+//     console.error("Error fetching unreserved projects:", error);
+//     res.status(500).json({ message: "Error fetching unreserved projects", error });
+//   }
+// };
 export const getUnreservedProjects = async (req, res) => {
   try {
     const unreservedProjects = await SuggestedprojectModel.find({
-      $or: [
-        { reservation: { $exists: false } },
-        { "reservation.reservedBy": { $exists: false } },
-        { "reservation.approved": false },
-      ],
+      "reservation.approved": false,
     })
-      .populate("supervisor", "supervisorName")
-      .populate("college", "collegeName")
-      .populate("department", "departmentName");
+      .populate("supervisor", "supervisorName") // Populate supervisorName
+      .populate("college", "collegeName") // Populate collegeName
+      .populate("department", "departmentName"); // Populate departmentName
 
-    res.status(200).json({ message: "Unreserved Projects", projects: unreservedProjects });
+    res.status(200).json({ message: "Projects where approved is false", projects: unreservedProjects });
   } catch (error) {
     console.error("Error fetching unreserved projects:", error);
     res.status(500).json({ message: "Error fetching unreserved projects", error });

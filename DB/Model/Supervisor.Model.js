@@ -21,7 +21,7 @@ const supervisorSchema = new Schema(
     status: {
       type: String,
       enum: ["active", "pending", "rejected"],
-      default: "pending",
+      default: "active",
     },
     role: {
       type: String,
