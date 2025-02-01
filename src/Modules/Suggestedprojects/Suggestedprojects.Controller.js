@@ -280,6 +280,38 @@ export const getUnreservedProjects = async (req, res) => {
     res.status(500).json({ message: "Error fetching unreserved projects", error });
   }
 };
+export const getUnreservedProject = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const unreservedProjects = await SuggestedprojectModel.find({
+      "reservation.approved": false,
+      _id: id
+    })
+      .populate("supervisor", "supervisorName") // Populate supervisorName
+      .populate("college", "collegeName") // Populate collegeName
+      .populate("department", "departmentName"); // Populate departmentName
+
+    res.status(200).json({ message: "Projects where approved is false", projects: unreservedProjects });
+  } catch (error) {
+    console.error("Error fetching unreserved projects:", error);
+    res.status(500).json({ message: "Error fetching unreserved projects", error });
+  }
+};
+export const getAllUnreservedProjects = async (req, res) => {
+  try {
+    const unreservedProjects = await SuggestedprojectModel.find({
+      "reservation.approved": false,
+    })
+      .populate("supervisor", "supervisorName") // Populate supervisorName
+      .populate("college", "collegeName") // Populate collegeName
+      .populate("department", "departmentName"); // Populate departmentName
+
+    res.status(200).json({ message: "Projects where approved is false", projects: unreservedProjects });
+  } catch (error) {
+    console.error("Error fetching unreserved projects:", error);
+    res.status(500).json({ message: "Error fetching unreserved projects", error });
+  }
+};
 
 export const getPendingProjects = async (req, res) => {
   try {

@@ -9,6 +9,9 @@ const router = Router()
 router.post("/AddSuggestedProjects", upload.single('projectFile'), auth(endPoint.AddSuggestedProjects), controllerSuggestedProject.AddSuggestedProjects);
 router.get("/getSuggestedProjects", controllerSuggestedProject.getSuggestedProjects);
 router.get("/getUnreservedProjects",auth(endPoint.AddSuggestedProjects), controllerSuggestedProject.getUnreservedProjects);
+router.get("/getUnreservedProjects", controllerSuggestedProject.getUnreservedProjects);
+router.get("/getAllUnreservedProjects", controllerSuggestedProject.getAllUnreservedProjects);
+router.get("/getUnreservedProject/:id", controllerSuggestedProject.getUnreservedProject);
 router.delete("/deleteSuggestedProjects/:id", auth(endPoint.deleteProject), controllerSuggestedProject.deleteSuggestedProjects);
 router.post("/ReserveProject/:projectId", auth(endPoint.ReserveProject), controllerSuggestedProject.ReserveProject);
 router.get("/getPendingProjects", controllerSuggestedProject.getPendingProjects);
